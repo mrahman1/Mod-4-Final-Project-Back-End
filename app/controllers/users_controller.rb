@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
-    render json: @user
+      render json: @user
   end
 
   # POST /users
@@ -38,6 +38,11 @@ class UsersController < ApplicationController
     @user.destroy
   end
 
+  def get_user
+    @user = User.find_by(first_name: params[:first_name])
+    render json: @user
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -46,6 +51,7 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email)
+      params.require(:user).permit(:email, :first_name, :last_name)
     end
+
 end
