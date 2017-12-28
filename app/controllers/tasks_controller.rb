@@ -36,6 +36,9 @@ class TasksController < ApplicationController
   # DELETE /tasks/1
   def destroy
     @task.destroy
+
+    @tasks = Task.all
+    render json: @tasks
   end
 
   private
@@ -46,6 +49,6 @@ class TasksController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def task_params
-      params.require(:task).permit(:item, :priority, :label, :due_date, :completed, :description)
+      params.require(:task).permit(:item, :priority, :label, :due_date, :completed, :description, :user_id)
     end
 end
